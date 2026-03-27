@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "allTest": "npx cypress run --spec 'cypress/e2e/'",
+    "api:login": "npx cypress run --spec 'cypress/e2e/autenticacao/*.cy.js'",
+    "api:usuarios": "npx cypress run --spec 'cypress/e2e/usuarios/*.cy.js'"
   },
   "keywords": [],
   "author": "",
