@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
     "allTest": "npx cypress run --spec 'cypress/e2e/'",
     "test:login": "npx cypress run --spec 'cypress/e2e/autenticacao/*.cy.js'",
     "test:usuarios": "npx cypress run --spec 'cypress/e2e/usuarios/*.cy.js'",
