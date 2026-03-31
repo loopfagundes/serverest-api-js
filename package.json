@@ -9,6 +9,7 @@
     "allTest": "npx cypress run --spec 'cypress/e2e/'",
     "test:login": "npx cypress run --spec 'cypress/e2e/autenticacao/*.cy.js'",
     "test:usuarios": "npx cypress run --spec 'cypress/e2e/usuarios/*.cy.js'",
+    "test:produtos": "npx cypress run --spec 'cypress/e2e/produtos/*.cy.js'",
     "allure:clean": "rimraf allure-results allure-report",
     "allure:open": "allure generate ./allure-results -o ./allure-report --clean && allure open ./allure-report"
   },
