@@ -4,7 +4,7 @@ on:
   push:
     branches: [ '**' ]
   pull_request:
-    branches: [ develop, main ]
+    branches: [ '**' ]
 
 jobs:
   cypress-tests:
@@ -14,7 +14,7 @@ jobs:
       serverest:
         image: paulogoncalvesbh/serverest:latest
         ports:
-          - 3001:3000
+          - 3000:3000
         options: >-
           --health-cmd "wget -qO- http://localhost:3000/usuarios || exit 1"
           --health-interval 10s
@@ -44,14 +44,7 @@ jobs:
         if: always()
         run: npm run allure:generate
 
-      - name: 📊 Publicar Allure Report
-        if: always()
-        uses: simple-ioann/allure-report-action@v2
-        with:
-          allure-results: allure-results
-          allure-report: allure-report
-
-      - name: 📁 Upload Allure Report como artefato
+      - name: 📁 Upload Allure Report
         if: always()
         uses: actions/upload-artifact@v4
         with:
