@@ -42,7 +42,7 @@ jobs:
 
       - name: 📊 Gerar Allure Report
         if: always()
-        run: npm run allure:generate
+        run: npm run allure:open
 
       - name: 📁 Upload Allure Report
         if: always()
