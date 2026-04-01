@@ -41,4 +41,20 @@ const deletarUsuario = (id) => {
   })
 }
 
-module.exports = { getUsuarios, criarUsuario, buscarUsuarioPorId, editarUsuario, deletarUsuario }
+const getUsuariosIncorreto = () => {
+  return cy.request({
+    method: 'GET',
+    url: '/usuario',
+    failOnStatusCode: false,
+  })
+}
+
+const getUsuariosInvalido = () => {
+  return cy.request({
+    method: 'GET',
+    url: '/usuarios/test',
+    failOnStatusCode: false,
+  })
+}
+
+module.exports = { getUsuarios, getUsuariosIncorreto, getUsuariosInvalido, criarUsuario, buscarUsuarioPorId, editarUsuario, deletarUsuario }
