@@ -4,7 +4,7 @@ describe('Usuários - Testes Funcionais', () => {
 
   let usuarioId
 
-  it('deve listar todos os usuários', () => {
+  it('GET / CT001 - Buscar todos os usuários cadastrados', () => {
     getUsuarios().then((response) => {
       expect(response.status).to.eq(200)
       expect(response.body.usuarios).to.be.an('array')
@@ -24,7 +24,7 @@ describe('Usuários - Testes Funcionais', () => {
     })
   })
 
-  it('deve buscar um usuário por ID', () => {
+  it('GET ID / CT001 - Buscar um usuário por ID cadastrado ', () => {
     buscarUsuarioPorId(usuarioId).then((response) => {
       expect(response.status).to.eq(200)
       expect(response.body).to.have.property('_id', usuarioId)
