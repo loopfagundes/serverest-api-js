@@ -12,14 +12,29 @@ describe('Usuários - Testes Funcionais', () => {
     })
   })
 
-  it('deve criar um usuário com sucesso', () => {
+  it('POST / CT001 - Cadastrar novo usuário e gerar um ID', () => {
     cy.fixture('usuarios/usuario').then((usuario) => {
       usuario.email = `qa_novo_${Date.now()}@qa.com.br`
-      criarUsuario(usuario).then((response) => {
-        expect(response.status).to.eq(201)
-        expect(response.body).to.have.property('_id')
-        usuarioId = response.body._id
-        expect(response.body.message).to.eq('Cadastro realizado com sucesso')
+      cy.fixture('usuarios/message').then((message) => {  
+        criarUsuario(usuario).then((response) => {
+          expect(response.status).to.eq(201)
+          expect(response.body).to.have.property('_id')
+          usuarioId = response.body._id
+          expect(response.body.message).to.eq(message.responseUsuarioCadastrado)
+        })
+      })
+    })
+  })
+
+  it('POST / CT002 - Cadastrar novo usuário com admin false', () => {
+    cy.fixture('usuarios/usuario').then((usuario) => {
+      usuario.email = `qa_novo_false${Date.now()}@qa.com.br`
+      usuario.administrador = 'false'
+      cy.fixture('usuarios/message').then((message) => {  
+        criarUsuario(usuario).then((response) => {
+          expect(response.status).to.eq(201)
+          expect(response.body.message).to.eq(message.responseUsuarioCadastrado)
+        })
       })
     })
   })
