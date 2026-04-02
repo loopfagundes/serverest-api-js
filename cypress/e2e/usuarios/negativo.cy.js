@@ -34,7 +34,7 @@ describe('[GET ID] Buscar Usuário por ID - Testes Negativos', () => {
         })
     })
 
-    it('GET ID / CT003 - ID com 16 caracteres inválidos', () => { 
+    it('GET ID / CT003 - ID com 16 caracteres inválidos', () => {
         const idInvalido = '0uxuPY0cbmQhpEw!'
         cy.fixture('usuarios/message').then((message) => {
             buscarUsuarioPorId(idInvalido).then((response) => {
@@ -95,5 +95,86 @@ describe('[GET ID] Buscar Usuário por ID - Testes Negativos', () => {
         })
     })
 
+})
+
+describe('[POST] Cadastrar Usuário - Testes Negativos', () => {
+
+    it('POST / CT003 - Cadastrar usuário com email já existente', () => {
+        cy.fixture('usuarios/usuario').then((usuario) => {
+            usuario.email = `fulano@qa.com`
+            cy.fixture('usuarios/message').then((message) => {
+                criarUsuario(usuario).then((response) => {
+                    expect(response.status).to.eq(400)
+                    expect(response.body.message).to.eq(message.esteEmailJaEstaSendoUsado)
+                })
+            })
+        })
+    })
+
+    it('POST / CT004 - Deixar cadastrar com campos em branco', () => {
+        cy.fixture('usuarios/usuario').then((usuario) => {
+            usuario.nome = ''
+            usuario.email = ''
+            usuario.password = ''
+            usuario.administrador = ''
+            cy.fixture('usuarios/message').then((message) => {
+                criarUsuario(usuario).then((response) => {
+                    expect(response.status).to.eq(400)
+                    expect(response.body.nome).to.eq(message.camposObrigatorios.nome)
+                    expect(response.body.email).to.eq(message.camposObrigatorios.email)
+                    expect(response.body.password).to.eq(message.camposObrigatorios.password)
+                    expect(response.body.administrador).to.eq(message.camposObrigatorios.administrador)
+                })
+            })
+        })
+    })
+
+    it('POST / CT017 - Preencher o campo email inválido e os demais campos com valores válidos', () => {
+        cy.fixture("usuarios/usuario").then((usuario) => {
+            usuario.email = "teste@@qa.com"
+            cy.fixture('usuarios/message').then((message) => {
+                criarUsuario(usuario).then((response) => {
+                    expect(response.status).to.eq(400)
+                    expect(response.body.email).to.eq(message.emailInvalido)
+                })
+            })
+        })
+    })
+
+    it('POST / CT031 - Preencher o campo administrador com valor diferente de true ou false', () => {
+        cy.fixture("usuarios/usuario").then((usuario) => {
+            usuario.administrador = "maybe"
+            cy.fixture('usuarios/message').then((message) => {
+                criarUsuario(usuario).then((response) => {
+                    expect(response.status).to.eq(400)
+                    expect(response.body.administrador).to.eq(message.camposObrigatorios.administrador)
+                })
+            })
+        })
+    })
+
+    it('POST / CT032 - Preencher o campo administrador com valor em português diferente de true ou false', () => {
+        cy.fixture("usuarios/usuario").then((usuario) => {
+            usuario.administrador = "verdadeiro"
+            cy.fixture('usuarios/message').then((message) => {
+                criarUsuario(usuario).then((response) => {
+                    expect(response.status).to.eq(400)
+                    expect(response.body.administrador).to.eq(message.camposObrigatorios.administrador)
+                })
+            })
+        })
+    })
+
+    it('POST / CT033 - Preencher o campo administrador com valor contendo espaços', () => {
+        cy.fixture("usuarios/usuario").then((usuario) => {
+            usuario.administrador = " true "
+            cy.fixture('usuarios/message').then((message) => {
+                criarUsuario(usuario).then((response) => {
+                    expect(response.status).to.eq(400)
+                    expect(response.body.administrador).to.eq(message.camposObrigatorios.administrador)
+                })
+            })
+        })  
+    })
 
 })
