@@ -1,5 +1,14 @@
 {
+    "responseUsuarioCadastrado": "Cadastro realizado com sucesso",
     "getUsuariosEndpointIncorreto": "Não é possível realizar GET em /usuario. Acesse http://localhost:3000 para ver as rotas disponíveis e como utilizá-las.",
     "getUsuarioEndpointInvalido": "id deve ter exatamente 16 caracteres alfanuméricos",
-    "usuarioNaoEncontrado": "Usuário não encontrado"
+    "usuarioNaoEncontrado": "Usuário não encontrado",
+    "esteEmailJaEstaSendoUsado": "Este email já está sendo usado",
+    "emailInvalido": "email deve ser um email válido",
+    "camposObrigatorios": {
+        "nome": "nome não pode ficar em branco",
+        "email": "email não pode ficar em branco",
+        "password": "password não pode ficar em branco",
+        "administrador": "administrador deve ser 'true' ou 'false'"
+    }
 }
