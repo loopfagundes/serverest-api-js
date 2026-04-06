@@ -15,7 +15,7 @@ describe('Usuários - Testes Funcionais', () => {
   it('POST / CT001 - Cadastrar novo usuário e gerar um ID', () => {
     cy.fixture('usuarios/usuario').then((usuario) => {
       usuario.email = `qa_novo_${Date.now()}@qa.com.br`
-      cy.fixture('usuarios/message').then((message) => {  
+      cy.fixture('usuarios/message').then((message) => {
         criarUsuario(usuario).then((response) => {
           expect(response.status).to.eq(201)
           expect(response.body).to.have.property('_id')
@@ -30,7 +30,7 @@ describe('Usuários - Testes Funcionais', () => {
     cy.fixture('usuarios/usuario').then((usuario) => {
       usuario.email = `qa_novo_false${Date.now()}@qa.com.br`
       usuario.administrador = 'false'
-      cy.fixture('usuarios/message').then((message) => {  
+      cy.fixture('usuarios/message').then((message) => {
         criarUsuario(usuario).then((response) => {
           expect(response.status).to.eq(201)
           expect(response.body.message).to.eq(message.responseUsuarioCadastrado)
@@ -46,21 +46,27 @@ describe('Usuários - Testes Funcionais', () => {
     })
   })
 
-  it('deve editar um usuário com sucesso', () => {
+  it('PUT / CT001 - Edição de um usuário por ID', () => {
     cy.fixture('usuarios/usuario').then((usuario) => {
       usuario.nome = 'Usuario Editado QA'
       usuario.email = `qa_edit_${Date.now()}@qa.com.br`
-      editarUsuario(usuarioId, usuario).then((response) => {
-        expect(response.status).to.eq(200)
-        expect(response.body.message).to.eq('Registro alterado com sucesso')
+      cy.fixture('usuarios/message').then((message) => {
+        editarUsuario(usuarioId, usuario).then((response) => {
+          expect(response.status).to.eq(200)
+          expect(response.body.message).to.eq(message.responseUsuarioEditado)
+        })
       })
     })
   })
 
-  it('deve deletar um usuário com sucesso', () => {
-    deletarUsuario(usuarioId).then((response) => {
-      expect(response.status).to.eq(200)
-      expect(response.body.message).to.eq('Registro excluído com sucesso')
+
+  it('DELETE / CT001 - Deletar um usuário por ID', () => {
+    cy.fixture('usuarios/message').then((message) => {
+      deletarUsuario(usuarioId).then((response) => {
+        expect(response.status).to.eq(200)
+        expect(response.body.message).to.eq(message.exclusaoUsuario)
+      })
     })
   })
+
 })
