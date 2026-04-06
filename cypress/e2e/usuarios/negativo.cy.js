@@ -1,4 +1,21 @@
-import { criarUsuario, getUsuariosIncorreto, getUsuariosInvalido, getUsuarios, buscarUsuarioPorId, editarUsuario, deletarUsuario } from '../../support/services/usuarios.service'
+import { criarUsuario, getUsuariosIncorreto, getUsuariosInvalido, buscarUsuarioPorId, editarUsuario, deletarUsuario } from '../../support/services/usuarios.service'
+
+let usuarioId
+
+before(() => {
+    cy.fixture('usuarios/usuario').then((usuario) => {
+        usuario.email = `qa_${Date.now()}@qa.com.br`
+        criarUsuario(usuario).then((response) => {
+            usuarioId = response.body._id
+        })
+    })
+})
+
+after(() => {
+    deletarUsuario(usuarioId).then((response) => {
+        expect(response.status).to.eq(200)
+    })
+})
 
 describe('[GET] Listar todos os usuários - Testes Negativos', () => {
 
@@ -174,7 +191,79 @@ describe('[POST] Cadastrar Usuário - Testes Negativos', () => {
                     expect(response.body.administrador).to.eq(message.camposObrigatorios.administrador)
                 })
             })
-        })  
+        })
+    })
+
+})
+
+describe("[PUT] Edição do Usuário com ID - Testes Negativos", () => {
+
+    it('PUT / CT003 - Tentar alterar e-mail para um já existente', () => {
+        cy.fixture('usuarios/usuario').then((usuario) => {
+            usuario.email = 'fulano@qa.com'
+            cy.fixture('usuarios/message').then((message) => {
+                editarUsuario(usuarioId, usuario).then((response) => {
+                    expect(response.status).to.eq(400)
+                    expect(response.body.message).to.eq(message.esteEmailJaEstaSendoUsado)
+                })
+            })
+        })
+    })
+
+    it('PUT / CT004 - Deixar editar com campos em branco', () => {
+        cy.fixture('usuarios/usuario').then((usuario) => {
+            usuario.nome = ''
+            usuario.email = ''
+            usuario.password = ''
+            usuario.administrador = ''
+            cy.fixture('usuarios/message').then((message) => {
+                editarUsuario(usuarioId, usuario).then((response) => {
+                    expect(response.status).to.eq(400)
+                    expect(response.body.nome).to.eq(message.camposObrigatorios.nome)
+                    expect(response.body.email).to.eq(message.camposObrigatorios.email)
+                    expect(response.body.password).to.eq(message.camposObrigatorios.password)
+                    expect(response.body.administrador).to.eq(message.camposObrigatorios.administrador)
+                })
+            })
+        })
+    })
+
+    it('PUT / CT017 - Preencher o campo email inválido e os demais campos com valores válidos', () => {
+        cy.fixture("usuarios/usuario").then((usuario) => {
+            usuario.email = "teste@@qa.com"
+            cy.fixture('usuarios/message').then((message) => {
+                editarUsuario(usuarioId, usuario).then((response) => {
+                    expect(response.status).to.eq(400)
+                    expect(response.body.email).to.eq(message.emailInvalido)
+                })
+            })
+        })
+    })
+
+    it('PUT / CT028 - Campo de senha em branco', () => {
+        cy.fixture("usuarios/usuario").then((usuario) => {
+            usuario.password = ""
+            cy.fixture('usuarios/message').then((message) => {
+                editarUsuario(usuarioId, usuario).then((response) => {
+                    expect(response.status).to.eq(400)
+                    expect(response.body.password).to.eq(message.camposObrigatorios.password)
+                })
+            })
+        })
+    })
+
+})
+
+describe('[DELETE] Deletar Usuário por ID - Testes Negativos', () => {
+
+    it('DELETE / CT002 - Deletar um usuário por ID não cadastrado', () => {
+        const idInexistente = '0uxuPY0cbmQhpEww'
+        cy.fixture('usuarios/message').then((message) => {
+            deletarUsuario(idInexistente).then((response) => {
+                expect(response.status).to.eq(200)
+                expect(response.body.message).to.eq(message.nenhumRegistroExcluido)
+            })
+        })
     })
 
 })
