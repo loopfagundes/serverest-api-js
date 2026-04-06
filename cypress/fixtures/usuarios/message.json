@@ -5,6 +5,9 @@
     "usuarioNaoEncontrado": "Usuário não encontrado",
     "esteEmailJaEstaSendoUsado": "Este email já está sendo usado",
     "emailInvalido": "email deve ser um email válido",
+    "responseUsuarioEditado": "Registro alterado com sucesso",
+    "exclusaoUsuario": "Registro excluído com sucesso",
+    "nenhumRegistroExcluido": "Nenhum registro excluído",
     "camposObrigatorios": {
         "nome": "nome não pode ficar em branco",
         "email": "email não pode ficar em branco",
