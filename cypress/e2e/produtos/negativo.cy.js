@@ -12,10 +12,6 @@ describe('[GET] Listar Produtos - Testes Negativos', () => {
         })
     })
 
-})
-
-describe('[GET ID] - Listar Produto por ID - Testes Negativos', () => {
-
     it('GET ID / CT002 - Buscar produto por ID inexistente', () => {
         const idInexistente = '7rfEqNeXierOfsSH'
         cy.fixture('produtos/message').then((message) => {
@@ -28,9 +24,10 @@ describe('[GET ID] - Listar Produto por ID - Testes Negativos', () => {
 
 })
 
-describe('[POST] Criar Produto Administrador True - Testes Negativos', () => {
-    before(() => {
-        cy.loginAdmin()
+describe('Produtos com Administrador True - Testes Negativos', () => {
+
+    before(() => { 
+        cy.loginAdmin() 
     })
 
     after(() => {
@@ -39,7 +36,6 @@ describe('[POST] Criar Produto Administrador True - Testes Negativos', () => {
             expect(response.status).to.eq(200)
         })
     })
-
 
     it('POST / CT002 - Criar produto sem token', () => {
         cy.fixture('produtos/produto').then((produto) => {
@@ -64,7 +60,7 @@ describe('[POST] Criar Produto Administrador True - Testes Negativos', () => {
         })
     })
 
-    it('POST / CT005 - Cadastrar com todos os campos brancos', () => {
+    it('POST / CT005 - Cadastrar com todos os campos em branco', () => {
         cy.fixture('produtos/produto').then((produto) => {
             produto.nome = ''
             produto.preco = ''
@@ -154,12 +150,67 @@ describe('[POST] Criar Produto Administrador True - Testes Negativos', () => {
         })
     })
 
+    it('PUT / CT002 - Editar produto sem token', () => {
+        const produtoId = '9sobdBIhGCPOAUVh'
+        cy.fixture('produtos/produto').then((produto) => {
+            produto.nome = 'Produto Editado Sem Token'
+            cy.fixture('produtos/message').then((message) => {
+                editarProduto('', produtoId, produto).then((response) => {
+                    expect(response.status).to.eq(401)
+                    expect(response.body.message).to.eq(message.tokenInvalido)
+                })
+            })
+        })
+    })
+
+    it('PUT / CT005 - Campos obrigatórios em branco', () => {
+        const produtoId = '9sobdBIhGCPOAUVh'
+        cy.fixture('produtos/produto').then((produto) => {
+            produto.nome = ''
+            produto.preco = ''
+            produto.descricao = ''
+            produto.quantidade = ''
+            cy.fixture('produtos/message').then((message) => {
+                editarProduto(Cypress.env('tokenAdmin'), produtoId, produto).then((response) => {
+                    expect(response.status).to.eq(400)
+                    expect(response.body.nome).to.eq(message.camposObrigatorios.nome)
+                    expect(response.body.preco).to.eq(message.camposObrigatorios.preco)
+                    expect(response.body.descricao).to.eq(message.camposObrigatorios.descricao)
+                    expect(response.body.quantidade).to.eq(message.camposObrigatorios.quantidade)
+                })
+            })
+        })
+    })
+
+    it('PUT / CT022 - Preço null', () => {
+        const produtoId = '9sobdBIhGCPOAUVh'
+        cy.fixture('produtos/produto').then((produto) => {
+            produto.preco = null
+            cy.fixture('produtos/message').then((message) => {
+                editarProduto(Cypress.env('tokenAdmin'), produtoId, produto).then((response) => {
+                    expect(response.status).to.eq(400)
+                    expect(response.body.preco).to.eq(message.precoInvalido)
+                })
+            })
+        })
+    })
+
+    it('DELETE / CT002 - Excluir produto por ID inexistente', () => {
+        const idInexistente = '7rfEqNeXierOfsSH'
+        cy.fixture('produtos/message').then((message) => {
+            deletarProduto(Cypress.env('tokenAdmin'), idInexistente).then((response) => {
+                expect(response.status).to.eq(200)
+                expect(response.body.message).to.eq(message.nenhumRegistroExcluido)
+            })
+        })
+    })
+
 })
 
-describe('[POST] Criar Produtos com Administrador False  - Testes Negativos', () => {
+describe('Produtos com Administrador False - Testes Negativos', () => {
 
-    before(() => {
-        cy.loginAdminFalse()
+    before(() => { 
+        cy.loginAdminFalse() 
     })
 
     after(() => {
@@ -177,6 +228,19 @@ describe('[POST] Criar Produtos com Administrador False  - Testes Negativos', ()
                     expect(response.status).to.eq(403)
                     expect(response.body.message).to.eq(message.acessoNegado)
                     expect(response.body).to.not.have.property('_id')
+                })
+            })
+        })
+    })
+
+    it('PUT / CT004 - Rota exclusiva para administrador', () => {
+        const produtoId = '9sobdBIhGCPOAUVh'
+        cy.fixture('produtos/produto').then((produto) => {
+            produto.nome = 'Produto Editado Nao Admin'
+            cy.fixture('produtos/message').then((message) => {
+                editarProduto(Cypress.env('tokenNaoAdmin'), produtoId, produto).then((response) => {
+                    expect(response.status).to.eq(403)
+                    expect(response.body.message).to.eq(message.acessoNegado)
                 })
             })
         })
