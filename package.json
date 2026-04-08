@@ -6,6 +6,7 @@
   "scripts": {
     "docker:up": "docker-compose up -d",
     "docker:down": "docker-compose down",
+    "cy:open": "npx cypress open",
     "allTest": "npx cypress run --spec 'cypress/e2e/'",
     "test:login": "npx cypress run --spec 'cypress/e2e/autenticacao/*.cy.js'",
     "test:usuarios": "npx cypress run --spec 'cypress/e2e/usuarios/*.cy.js'",

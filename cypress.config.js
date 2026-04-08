@@ -6,6 +6,14 @@ module.exports = defineConfig({
     baseUrl: 'http://localhost:3000',
     setupNodeEvents(on, config) {
       allureWriter(on, config)
+
+      on('task', {
+        log(message) {
+          console.log(message)
+          return null
+        },
+      })
+
       return config
     },
   },

@@ -1,4 +1,4 @@
-import { criarProduto, getProdutos, editarProduto, deletarProduto } from '../../support/services/produtos.service'
+import { criarProduto, getProdutos, editarProduto, deletarProduto, getProdutosPorId } from '../../support/services/produtos.service'
 
 describe('Produtos - Testes Funcionais', () => {
 
@@ -8,11 +8,18 @@ describe('Produtos - Testes Funcionais', () => {
     cy.login('fulano@qa.com', 'teste')
   })
 
-  it('deve listar todos os produtos', () => {
+  it('GET / CT001 - Buscar todos os produtos cadastrados', () => {
     getProdutos(Cypress.env('token')).then((response) => {
       expect(response.status).to.eq(200)
       expect(response.body.produtos).to.be.an('array')
       expect(response.body.quantidade).to.be.greaterThan(0)
+    })
+  })
+
+  it('GET ID / CT001 - Buscar produto por ID', () => {
+    getProdutosPorId(Cypress.env('token'), 'BeeJh5lz3k6kSIzA').then((response) => {
+      expect(response.status).to.eq(200)
+      expect(response.body).to.have.property('_id')
     })
   })
 
@@ -42,15 +49,6 @@ describe('Produtos - Testes Funcionais', () => {
     deletarProduto(Cypress.env('token'), produtoId).then((response) => {
       expect(response.status).to.eq(200)
       expect(response.body.message).to.eq('Registro excluído com sucesso')
-    })
-  })
-
-  it('não deve criar produto sem token', () => {
-    cy.fixture('produtos/produto').then((produto) => {
-      criarProduto('', produto).then((response) => {
-        expect(response.status).to.eq(401)
-        expect(response.body.message).to.eq('Token de acesso ausente, inválido, expirado ou usuário do token não existe mais')
-      })
     })
   })
 

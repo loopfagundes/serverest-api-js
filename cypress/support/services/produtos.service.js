@@ -7,6 +7,24 @@ const getProdutos = (token) => {
   })
 }
 
+const getProdutosInvalido = (token) => {
+  return cy.request({
+    method: 'GET', 
+    url: "/produto",
+    headers: {Authorization: token},
+    failOnStatusCode: false,
+  })
+}
+
+const getProdutosPorId = (token, id) => {
+  return cy.request({
+    method: 'GET',
+    url: `/produtos/${id}`,
+    headers: { Authorization: token },
+    failOnStatusCode: false,
+  })
+}
+
 const criarProduto = (token, body) => {
   return cy.request({
     method: 'POST',
@@ -36,4 +54,4 @@ const deletarProduto = (token, id) => {
   })
 }
 
-module.exports = { getProdutos, criarProduto, editarProduto, deletarProduto }
+module.exports = { getProdutos, getProdutosInvalido, getProdutosPorId, criarProduto, editarProduto, deletarProduto }
