@@ -23,7 +23,7 @@ describe('Produtos - Testes Funcionais', () => {
     })
   })
 
-  it('deve criar um produto com sucesso', () => {
+  it('POST / CT001 - Criar um novo produto', () => {
     cy.fixture('produtos/produto').then((produto) => {
       produto.nome = `Produto QA ${Date.now()}`
       criarProduto(Cypress.env('token'), produto).then((response) => {
@@ -35,7 +35,7 @@ describe('Produtos - Testes Funcionais', () => {
     })
   })
 
-  it('deve editar um produto com sucesso', () => {
+  it('PUT / CT001 - Edição por ID do produto', () => {
     cy.fixture('produtos/produto').then((produto) => {
       produto.nome = `Produto Editado QA ${Date.now()}`
       editarProduto(Cypress.env('token'), produtoId, produto).then((response) => {
@@ -45,7 +45,7 @@ describe('Produtos - Testes Funcionais', () => {
     })
   })
 
-  it('deve deletar um produto com sucesso', () => {
+  it('DELETE / CT001 - Exclusão por ID do produto', () => {
     deletarProduto(Cypress.env('token'), produtoId).then((response) => {
       expect(response.status).to.eq(200)
       expect(response.body.message).to.eq('Registro excluído com sucesso')
