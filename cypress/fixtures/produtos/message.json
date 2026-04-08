@@ -15,5 +15,6 @@
     "precoInvalido": "preco deve ser um número",
     "precoNaoPodeSerMaior": "preco não pode ser maior que 9007199254740991",
     "quantidadeInvalida": "quantidade deve ser um número",
-    "quantidadeNaoPodeSerMaior": "quantidade não pode ser maior que 9007199254740991"
+    "quantidadeNaoPodeSerMaior": "quantidade não pode ser maior que 9007199254740991",
+    "nenhumRegistroExcluido": "Nenhum registro excluído"
 }
