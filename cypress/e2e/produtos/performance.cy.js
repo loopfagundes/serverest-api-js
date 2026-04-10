@@ -1,7 +1,10 @@
-import { getProdutos, criarProduto, deletarProduto } from '../../support/services/produtos.service'
+import {
+  getProdutos,
+  criarProduto,
+  deletarProduto,
+} from '../../support/services/produtos.service'
 
 describe('Produtos - Testes de Performance', () => {
-
   let produtoId
 
   before(() => {
@@ -35,5 +38,4 @@ describe('Produtos - Testes de Performance', () => {
       cy.log(`Tempo de resposta: ${response.duration}ms`)
     })
   })
-
 })
