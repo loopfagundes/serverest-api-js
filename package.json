@@ -14,7 +14,8 @@
     "test:carrinhos": "npx cypress run --spec 'cypress/e2e/carrinhos/*.cy.js'",
     "test:fluxos": "npx cypress run --spec 'cypress/e2e/fluxos/*.cy.js'",
     "allure:clean": "rimraf allure-results allure-report",
-    "allure:open": "allure generate ./allure-results -o ./allure-report --clean && allure open ./allure-report"
+    "allure:open": "allure generate ./allure-results -o ./allure-report --clean && allure open ./allure-report",
+    "format": "prettier --write cypress/**/*.js"
   },
   "keywords": [],
   "author": "",
@@ -24,6 +25,7 @@
     "@shelex/cypress-allure-plugin": "^2.41.2",
     "ajv": "^8.18.0",
     "allure-commandline": "^2.38.1",
-    "cypress": "^15.13.0"
+    "cypress": "^15.13.0",
+    "prettier": "^3.8.2"
   }
 }
