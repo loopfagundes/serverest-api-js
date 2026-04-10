@@ -1,12 +1,18 @@
 import Ajv from 'ajv'
-import { criarProduto, deletarProduto } from '../../support/services/produtos.service'
-import { criarCarrinho, getCarrinhos, deletarCarrinho } from '../../support/services/carrinhos.service'
+import {
+  criarProduto,
+  deletarProduto,
+} from '../../support/services/produtos.service'
+import {
+  criarCarrinho,
+  getCarrinhos,
+  deletarCarrinho,
+} from '../../support/services/carrinhos.service'
 import { carrinhoSchema } from '../../support/schemas/carrinho.schema'
 
 const ajv = new Ajv()
 
 describe('Carrinhos - Testes de Contrato', () => {
-
   let produtoId
 
   before(() => {
@@ -43,5 +49,4 @@ describe('Carrinhos - Testes de Contrato', () => {
       expect(valid, JSON.stringify(validate.errors)).to.be.true
     })
   })
-
 })
