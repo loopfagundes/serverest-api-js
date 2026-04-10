@@ -5,7 +5,6 @@ import { usuarioSchema } from '../../support/schemas/usuario.schema'
 const ajv = new Ajv()
 
 describe('Usuários - Testes de Contrato', () => {
-
   it('deve validar o schema de um usuário', () => {
     getUsuarios().then((response) => {
       expect(response.status).to.eq(200)
@@ -21,5 +20,4 @@ describe('Usuários - Testes de Contrato', () => {
       expect(valid, JSON.stringify(validate.errors)).to.be.true
     })
   })
-
 })
