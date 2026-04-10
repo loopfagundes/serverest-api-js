@@ -7,8 +7,6 @@ import {
 } from '../../support/services/usuarios.service'
 
 describe('Usuários - Testes Funcionais', () => {
-  let usuarioId
-  let usuarioNaoAdminId
   let message
 
   before(() => {
@@ -31,50 +29,50 @@ describe('Usuários - Testes Funcionais', () => {
       criarUsuario(usuario).then((response) => {
         expect(response.status).to.eq(201)
         expect(response.body).to.have.property('_id')
-        usuarioId = response.body._id
         expect(response.body.message).to.eq(message.responseUsuarioCadastrado)
+        Cypress.env('usuarioId', response.body._id)
       })
     })
   })
 
   it('POST / CT002 - Cadastrar novo usuário com admin false', () => {
     cy.fixture('usuarios/usuario').then((usuario) => {
-      usuario.email = `qa_novo_false@qa.com.br`
+      usuario.email = `qa_novo_false_${Date.now()}@qa.com.br`
       usuario.administrador = 'false'
       criarUsuario(usuario).then((response) => {
         expect(response.status).to.eq(201)
-        usuarioNaoAdminId = response.body._id
         expect(response.body.message).to.eq(message.responseUsuarioCadastrado)
+        Cypress.env('usuarioNaoAdminId', response.body._id)
       })
     })
   })
 
-  it('GET ID / CT001 - Buscar um usuário por ID cadastrado ', () => {
-    buscarUsuarioPorId(usuarioId).then((response) => {
+  it('GET ID / CT001 - Buscar um usuário por ID cadastrado', () => {
+    buscarUsuarioPorId(Cypress.env('usuarioId')).then((response) => {
       expect(response.status).to.eq(200)
-      expect(response.body).to.have.property('_id', usuarioId)
+      expect(response.body).to.have.property('_id', Cypress.env('usuarioId'))
     })
   })
 
   it('PUT / CT001 - Edição de um usuário por ID', () => {
     cy.fixture('usuarios/usuario').then((usuario) => {
       usuario.nome = 'Usuario Editado QA'
-      editarUsuario(usuarioId, usuario).then((response) => {
+      editarUsuario(Cypress.env('usuarioId'), usuario).then((response) => {
         expect(response.status).to.eq(200)
         expect(response.body.message).to.eq(message.responseUsuarioEditado)
       })
     })
   })
 
-  it('DELETE / CT001 - Deletar um usuário por ID', () => {
-    deletarUsuario(usuarioId).then((response) => {
+  it('DELETE / CT001 - Deletar um usuário administrador por ID', () => {
+    deletarUsuario(Cypress.env('usuarioId')).then((response) => {
       expect(response.status).to.eq(200)
       expect(response.body.message).to.eq(message.exclusaoUsuario)
     })
   })
 
-  it('DELETE / CT001 - Deletar um usuário não administrador por ID', () => {
-    deletarUsuario(usuarioNaoAdminId).then((response) => {
+  it('DELETE / CT002 - Deletar um usuário não administrador por ID', () => {
+    deletarUsuario(Cypress.env('usuarioNaoAdminId')).then((response) => {
       expect(response.status).to.eq(200)
       expect(response.body.message).to.eq(message.exclusaoUsuario)
     })
