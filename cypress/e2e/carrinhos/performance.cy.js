@@ -1,8 +1,14 @@
-import { criarProduto, deletarProduto } from '../../support/services/produtos.service'
-import { getCarrinhos, criarCarrinho, deletarCarrinho } from '../../support/services/carrinhos.service'
+import {
+  criarProduto,
+  deletarProduto,
+} from '../../support/services/produtos.service'
+import {
+  getCarrinhos,
+  criarCarrinho,
+  deletarCarrinho,
+} from '../../support/services/carrinhos.service'
 
 describe('Carrinhos - Testes de Performance', () => {
-
   let produtoId
 
   before(() => {
@@ -45,5 +51,4 @@ describe('Carrinhos - Testes de Performance', () => {
       cy.log(`Tempo de resposta: ${response.duration}ms`)
     })
   })
-
 })

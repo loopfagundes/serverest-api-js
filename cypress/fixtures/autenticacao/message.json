@@ -1,0 +1,8 @@
+{
+    "loginRealizadoComSucesso": "Login realizado com sucesso",
+    "emailNaoPodeFicarEmBranco": "email não pode ficar em branco",
+    "loginInvalido": "Email e/ou senha inválidos",
+    "passwordNaoPodeFicarEmBranco": "password não pode ficar em branco",
+    "emailDeveSerValido": "email deve ser um email válido",
+    "endpointInvalido": "Não é possível realizar POST em /logins. Acesse http://localhost:3000 para ver as rotas disponíveis e como utilizá-las."
+}

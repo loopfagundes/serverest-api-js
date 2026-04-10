@@ -5,7 +5,6 @@ import { produtoSchema } from '../../support/schemas/produto.schema'
 const ajv = new Ajv()
 
 describe('Produtos - Testes de Contrato', () => {
-
   before(() => {
     cy.login('fulano@qa.com', 'teste')
   })
@@ -25,5 +24,4 @@ describe('Produtos - Testes de Contrato', () => {
       expect(valid, JSON.stringify(validate.errors)).to.be.true
     })
   })
-
 })

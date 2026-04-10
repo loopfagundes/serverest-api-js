@@ -23,7 +23,6 @@ const buscarUsuarioPorId = (id) => {
   })
 }
 
-
 const editarUsuario = (id, body) => {
   return cy.request({
     method: 'PUT',
@@ -57,4 +56,12 @@ const getUsuariosInvalido = () => {
   })
 }
 
-module.exports = { getUsuarios, getUsuariosIncorreto, getUsuariosInvalido, criarUsuario, buscarUsuarioPorId, editarUsuario, deletarUsuario }
+module.exports = {
+  getUsuarios,
+  getUsuariosIncorreto,
+  getUsuariosInvalido,
+  criarUsuario,
+  buscarUsuarioPorId,
+  editarUsuario,
+  deletarUsuario,
+}
