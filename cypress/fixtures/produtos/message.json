@@ -1,4 +1,5 @@
 {
+    "produtoCriado": "Cadastro realizado com sucesso",
     "enpointProdutoInvalido": "Não é possível realizar GET em /produto. Acesse http://localhost:3000 para ver as rotas disponíveis e como utilizá-las.",
     "produtoNaoEncontrado": "Produto não encontrado",
     "tokenInvalido": "Token de acesso ausente, inválido, expirado ou usuário do token não existe mais",

@@ -12,6 +12,7 @@
     "test:usuarios": "npx cypress run --spec 'cypress/e2e/usuarios/*.cy.js'",
     "test:produtos": "npx cypress run --spec 'cypress/e2e/produtos/*.cy.js'",
     "test:carrinhos": "npx cypress run --spec 'cypress/e2e/carrinhos/*.cy.js'",
+    "test:fluxos": "npx cypress run --spec 'cypress/e2e/fluxos/*.cy.js'",
     "allure:clean": "rimraf allure-results allure-report",
     "allure:open": "allure generate ./allure-results -o ./allure-report --clean && allure open ./allure-report"
   },
