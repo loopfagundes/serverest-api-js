@@ -3,6 +3,7 @@ import { criarUsuario, getUsuarios, buscarUsuarioPorId, editarUsuario, deletarUs
 describe('Usuários - Testes Funcionais', () => {
 
   let usuarioId
+  let usuarioNaoAdminId
 
   it('GET / CT001 - Buscar todos os usuários cadastrados', () => {
     getUsuarios().then((response) => {
@@ -28,11 +29,12 @@ describe('Usuários - Testes Funcionais', () => {
 
   it('POST / CT002 - Cadastrar novo usuário com admin false', () => {
     cy.fixture('usuarios/usuario').then((usuario) => {
-      usuario.email = `qa_novo_false${Date.now()}@qa.com.br`
+      usuario.email = `qa_novo_false@qa.com.br`
       usuario.administrador = 'false'
       cy.fixture('usuarios/message').then((message) => {
         criarUsuario(usuario).then((response) => {
           expect(response.status).to.eq(201)
+          usuarioNaoAdminId = response.body._id
           expect(response.body.message).to.eq(message.responseUsuarioCadastrado)
         })
       })
@@ -49,7 +51,6 @@ describe('Usuários - Testes Funcionais', () => {
   it('PUT / CT001 - Edição de um usuário por ID', () => {
     cy.fixture('usuarios/usuario').then((usuario) => {
       usuario.nome = 'Usuario Editado QA'
-      usuario.email = `qa_edit_${Date.now()}@qa.com.br`
       cy.fixture('usuarios/message').then((message) => {
         editarUsuario(usuarioId, usuario).then((response) => {
           expect(response.status).to.eq(200)
@@ -63,6 +64,15 @@ describe('Usuários - Testes Funcionais', () => {
   it('DELETE / CT001 - Deletar um usuário por ID', () => {
     cy.fixture('usuarios/message').then((message) => {
       deletarUsuario(usuarioId).then((response) => {
+        expect(response.status).to.eq(200)
+        expect(response.body.message).to.eq(message.exclusaoUsuario)
+      })
+    })
+  })
+
+  it('DELETE / CT001 - Deletar um usuário não administrador por ID', () => {
+    cy.fixture('usuarios/message').then((message) => {
+      deletarUsuario(usuarioNaoAdminId).then((response) => {
         expect(response.status).to.eq(200)
         expect(response.body.message).to.eq(message.exclusaoUsuario)
       })

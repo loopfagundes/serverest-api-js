@@ -7,6 +7,24 @@ const getCarrinhos = (token) => {
   })
 }
 
+const getCarrinhoInvalido = (token) => {
+  return cy.request({
+    method: 'GET',
+    url: '/carrinho',
+    headers: { Authorization: token },
+    failOnStatusCode: false,
+  })
+}
+
+const getCarrinhoPorId = (token, id) => {
+  return cy.request({
+    method: 'GET',
+    url: `/carrinhos/${id}`,
+    headers: { Authorization: token },
+    failOnStatusCode: false,
+  })
+}
+
 const criarCarrinho = (token, body) => {
   return cy.request({
     method: 'POST',
@@ -26,4 +44,13 @@ const deletarCarrinho = (token) => {
   })
 }
 
-module.exports = { getCarrinhos, criarCarrinho, deletarCarrinho }
+const deletarCancelarCompra = (token) => {
+  return cy.request({
+    method: 'DELETE',
+    url: '/carrinhos/cancelar-compra',
+    headers: { Authorization: token },
+    failOnStatusCode: false,
+  })
+}
+
+module.exports = { getCarrinhos, getCarrinhoPorId, getCarrinhoInvalido, criarCarrinho, deletarCarrinho, deletarCancelarCompra }
