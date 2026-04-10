@@ -1,7 +1,9 @@
-import { login, loginComEndpointInvalido } from '../../support/services/auth.service'
+import {
+  login,
+  loginComEndpointInvalido,
+} from '../../support/services/auth.service'
 
 describe('Autenticação - Testes Negativos', () => {
-
   let message
 
   before(() => {
@@ -72,5 +74,4 @@ describe('Autenticação - Testes Negativos', () => {
       expect(response.body.message).to.eq(message.endpointInvalido)
     })
   })
-
 })

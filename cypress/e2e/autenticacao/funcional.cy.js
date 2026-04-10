@@ -1,7 +1,6 @@
 import { login } from '../../support/services/auth.service'
 
 describe('Autenticação - Testes Funcionais', () => {
-
   let message
 
   before(() => {
@@ -19,5 +18,4 @@ describe('Autenticação - Testes Funcionais', () => {
       Cypress.env('token', response.body.authorization)
     })
   })
-
 })

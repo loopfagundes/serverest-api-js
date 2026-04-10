@@ -53,4 +53,11 @@ const deletarCancelarCompra = (token) => {
   })
 }
 
-module.exports = { getCarrinhos, getCarrinhoPorId, getCarrinhoInvalido, criarCarrinho, deletarCarrinho, deletarCancelarCompra }
+module.exports = {
+  getCarrinhos,
+  getCarrinhoPorId,
+  getCarrinhoInvalido,
+  criarCarrinho,
+  deletarCarrinho,
+  deletarCancelarCompra,
+}
