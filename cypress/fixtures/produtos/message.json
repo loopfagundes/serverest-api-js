@@ -1,0 +1,23 @@
+{
+    "produtoCriado": "Cadastro realizado com sucesso",
+    "produtoAlterado": "Registro alterado com sucesso",
+    "produtoExculido": "Registro excluído com sucesso",
+    "enpointProdutoInvalido": "Não é possível realizar GET em /produto. Acesse http://localhost:3000 para ver as rotas disponíveis e como utilizá-las.",
+    "produtoNaoEncontrado": "Produto não encontrado",
+    "tokenInvalido": "Token de acesso ausente, inválido, expirado ou usuário do token não existe mais",
+    "jaExisteProduto": "Já existe produto com esse nome",
+    "acessoNegado": "Rota exclusiva para administradores",
+    "camposObrigatorios": {
+        "nome": "nome não pode ficar em branco",
+        "preco": "preco deve ser um número",
+        "descricao": "descricao não pode ficar em branco",
+        "quantidade": "quantidade deve ser um número"
+    },
+    "precoPositivo": "preco deve ser um número positivo",
+    "quantidadePositiva": "quantidade deve ser maior ou igual a 0",
+    "precoInvalido": "preco deve ser um número",
+    "precoNaoPodeSerMaior": "preco não pode ser maior que 9007199254740991",
+    "quantidadeInvalida": "quantidade deve ser um número",
+    "quantidadeNaoPodeSerMaior": "quantidade não pode ser maior que 9007199254740991",
+    "nenhumRegistroExcluido": "Nenhum registro excluído"
+}

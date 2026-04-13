@@ -1,25 +1,60 @@
-// ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+import { login } from './services/auth.service'
+import { criarUsuario } from './services/usuarios.service'
+
+Cypress.Commands.add('login', (email, password) => {
+  login(email, password).then((response) => {
+    Cypress.env('token', response.body.authorization)
+  })
+})
+
+Cypress.Commands.add('loginAdmin', () => {
+  let usuarioEmail
+  let usuarioPassword
+  let usuarioId
+
+  cy.fixture('usuarios/usuario').then((usuario) => {
+    usuarioEmail = `admin_${Date.now()}@qa.com.br`
+    usuarioPassword = usuario.password
+
+    criarUsuario({
+      nome: usuario.nome,
+      email: usuarioEmail,
+      password: usuarioPassword,
+      administrador: 'true',
+    }).then((response) => {
+      expect(response.status).to.eq(201)
+      usuarioId = response.body._id
+      Cypress.env('usuarioAdminId', usuarioId)
+
+      login(usuarioEmail, usuarioPassword).then((loginResponse) => {
+        Cypress.env('tokenAdmin', loginResponse.body.authorization)
+      })
+    })
+  })
+})
+
+Cypress.Commands.add('loginAdminFalse', () => {
+  let usuarioEmail
+  let usuarioPassword
+  let usuarioId
+
+  cy.fixture('usuarios/usuario').then((usuario) => {
+    usuarioEmail = `naoadmin_${Date.now()}@qa.com.br`
+    usuarioPassword = usuario.password
+
+    criarUsuario({
+      nome: usuario.nome,
+      email: usuarioEmail,
+      password: usuarioPassword,
+      administrador: 'false',
+    }).then((response) => {
+      expect(response.status).to.eq(201)
+      usuarioId = response.body._id
+      Cypress.env('usuarioNaoAdminId', usuarioId)
+
+      login(usuarioEmail, usuarioPassword).then((loginResponse) => {
+        Cypress.env('tokenNaoAdmin', loginResponse.body.authorization)
+      })
+    })
+  })
+})

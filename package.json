@@ -4,13 +4,28 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "cy:open": "npx cypress open",
+    "allTest": "npx cypress run --spec 'cypress/e2e/'",
+    "test:login": "npx cypress run --spec 'cypress/e2e/autenticacao/*.cy.js'",
+    "test:usuarios": "npx cypress run --spec 'cypress/e2e/usuarios/*.cy.js'",
+    "test:produtos": "npx cypress run --spec 'cypress/e2e/produtos/*.cy.js'",
+    "test:carrinhos": "npx cypress run --spec 'cypress/e2e/carrinhos/*.cy.js'",
+    "test:fluxos": "npx cypress run --spec 'cypress/e2e/fluxos/*.cy.js'",
+    "allure:clean": "rimraf allure-results allure-report",
+    "allure:open": "allure generate ./allure-results -o ./allure-report --clean && allure open ./allure-report",
+    "format": "prettier --write cypress/**/*.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "devDependencies": {
-    "cypress": "^15.13.0"
+    "@shelex/cypress-allure-plugin": "^2.41.2",
+    "ajv": "^8.18.0",
+    "allure-commandline": "^2.38.1",
+    "cypress": "^15.13.0",
+    "prettier": "^3.8.2"
   }
 }

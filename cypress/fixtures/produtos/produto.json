@@ -1,0 +1,6 @@
+{
+  "nome": "Produto Teste QA",
+  "preco": 100,
+  "descricao": "Produto criado via teste automatizado",
+  "quantidade": 50
+}

@@ -1,0 +1,16 @@
+{
+    "adicionaProdutoAoCarrinhoComSucesso": "Cadastro realizado com sucesso",
+    "enpointInvalido": "Não é possível realizar GET em /carrinho. Acesse http://localhost:3000 para ver as rotas disponíveis e como utilizá-las.",
+    "carrinhoNaoEncontrado": "Carrinho não encontrado",
+    "carrinhoExcluidoComSucesso": "Registro excluído com sucesso",
+    "tokenInvalido": "Token de acesso ausente, inválido, expirado ou usuário do token não existe mais",
+    "camposObrigatorios": {
+        "produtoId": "produtos[0].idProduto não pode ficar em branco",
+        "quantidade": "produtos[0].quantidade deve ser um número",
+        "produtos": "produtos não contém 1 valor obrigatório"
+    },
+    "produtoNaoEncontrado": "Produto não encontrado",
+    "quantidadePositiva": "produtos[0].quantidade deve ser um número positivo",
+    "naoFoiEncontradoCarrinho": "Não foi encontrado carrinho para esse usuário",
+    "produtosReabastecidos": "Registro excluído com sucesso. Estoque dos produtos reabastecido"
+}
