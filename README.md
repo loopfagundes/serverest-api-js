@@ -35,14 +35,14 @@ Projeto de automação de testes de API REST desenvolvido para validar os endpoi
 
 ## 🛠️ Tecnologias
 
-| Tecnologia | Versão | Uso |
-|---|---|---|
-| [Cypress](https://www.cypress.io/) | 15.x | Framework de testes |
-| [JavaScript](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript) | ES6+ | Linguagem de programação |
-| [AJV](https://ajv.js.org/) | 8.x | Validação de schema JSON |
-| [Allure Report](https://docs.qameta.io/allure/) | 2.x | Relatórios de testes |
-| [Docker](https://www.docker.com/) | — | Ambiente isolado |
-| [GitHub Actions](https://github.com/features/actions) | — | Pipeline CI/CD |
+| Tecnologia | Uso |
+|---|---|
+| [Cypress](https://www.cypress.io/) | Framework de testes |
+| [JavaScript](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript) | Linguagem de programação |
+| [AJV](https://ajv.js.org/) | Validação de schema JSON |
+| [Allure Report](https://docs.qameta.io/allure/) | Relatórios de testes |
+| [Docker](https://www.docker.com/) | Ambiente isolado |
+| [GitHub Actions](https://github.com/features/actions) | Pipeline CI/CD |
 
 ---
 
